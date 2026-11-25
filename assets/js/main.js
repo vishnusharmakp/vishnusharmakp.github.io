@@ -12,6 +12,29 @@ var year = document.querySelector("#year");
 
 if (year) year.textContent = String(new Date().getFullYear());
 
+var themeToggle = document.querySelector("#theme-toggle");
+
+function applyTheme(theme) {
+  var next = theme === "light" ? "light" : "dark";
+  document.documentElement.setAttribute("data-theme", next);
+  if (!themeToggle) return;
+  var toLight = next === "dark";
+  themeToggle.textContent = toLight ? "Light" : "Dark";
+  themeToggle.setAttribute("aria-pressed", next === "light" ? "true" : "false");
+  themeToggle.setAttribute("aria-label", toLight ? "Switch to light theme" : "Switch to dark theme");
+}
+
+applyTheme(document.documentElement.getAttribute("data-theme"));
+
+if (themeToggle) {
+  themeToggle.addEventListener("click", function () {
+    var next = document.documentElement.getAttribute("data-theme") === "light" ? "dark" : "light";
+    applyTheme(next);
+    try { localStorage.setItem("theme", next); } catch (error) { /* keep the choice for this view */ }
+    if (typeof drawSimulator === "function") drawSimulator();
+  });
+}
+
 function focusableIn(root) {
   return Array.prototype.slice.call(
     root.querySelectorAll("a[href], button:not([disabled]), input, [tabindex]:not([tabindex='-1'])")
@@ -164,10 +187,18 @@ if (stats.length && !reducedMotion && "IntersectionObserver" in window) {
           el.textContent = finals[i];
           continue;
         }
-        var target = Number(el.getAttribute("data-count"));
         var prefix = el.getAttribute("data-prefix") || "";
         var suffix = el.getAttribute("data-suffix") || "";
-        el.textContent = prefix + Math.round(target * eased) + suffix;
+        var range = el.getAttribute("data-range");
+        if (range && range.indexOf("-") !== -1) {
+          var ends = range.split("-");
+          var low = Math.round(Number(ends[0]) * eased);
+          var high = Math.round(Number(ends[1]) * eased);
+          el.textContent = low + "–" + high + suffix;
+        } else {
+          var target = Number(el.getAttribute("data-count"));
+          el.textContent = prefix + Math.round(target * eased) + suffix;
+        }
       }
       if (t < 1) requestAnimationFrame(frame);
     }
@@ -409,9 +440,257 @@ async function loadNews() {
     var data = await response.json();
     var items = Array.isArray(data.items) ? data.items.slice(0, 12) : [];
     renderNews(items, typeof data.updated === "string" ? data.updated : "");
+    renderPulse(items, typeof data.updated === "string" ? data.updated : "");
   } catch (error) {
     showNewsFallback();
+    renderPulse([], "");
   }
 }
 
+function renderPulse(items, updated) {
+  var empty = document.querySelector("#pulse-empty");
+  var viewport = document.querySelector("#ticker-viewport");
+  var track = document.querySelector("#ticker-track");
+  var status = document.querySelector("#pulse-updated");
+  if (!empty || !viewport || !track || !status) return;
+  track.replaceChildren();
+  var usable = (items || []).filter(function (item) {
+    return item && safeUrl(item.url) && typeof item.title === "string" && item.title.trim();
+  });
+  if (!usable.length) {
+    viewport.hidden = true;
+    empty.hidden = false;
+    status.textContent = "Headlines refresh daily. None are loaded right now.";
+    return;
+  }
+  empty.hidden = true;
+  viewport.hidden = false;
+  var when = formatDate(updated);
+  status.textContent = when ? "Updated " + when : "Updated from public news feeds.";
+
+  function groupFor(list) {
+    var group = document.createElement("div");
+    group.className = "ticker-group";
+    list.forEach(function (item, index) {
+      if (index) {
+        var dot = document.createElement("span");
+        dot.className = "ticker-dot";
+        dot.setAttribute("aria-hidden", "true");
+        dot.textContent = "·";
+        group.append(dot);
+      }
+      var link = document.createElement("a");
+      link.href = safeUrl(item.url);
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.textContent = item.title.trim();
+      var hint = document.createElement("span");
+      hint.className = "sr-only";
+      hint.textContent = " (opens in a new tab)";
+      link.append(hint);
+      group.append(link);
+    });
+    return group;
+  }
+
+  var first = groupFor(usable);
+  track.append(first);
+  if (!reducedMotion) {
+    var copy = first.cloneNode(true);
+    copy.setAttribute("aria-hidden", "true");
+    track.append(copy);
+  }
+}
+
+async function loadPattern() {
+  var host = document.querySelector("#pattern-card");
+  if (!host) return;
+  try {
+    var response = await fetch("data/pattern.json", { cache: "no-cache" });
+    if (!response.ok) throw new Error("missing");
+    var data = await response.json();
+    var current = data && data.current;
+    if (!current || typeof current.title !== "string") throw new Error("empty");
+    host.replaceChildren();
+    var card = document.createElement("article");
+    card.className = "pattern-card";
+    var kicker = document.createElement("p");
+    kicker.className = "kicker";
+    kicker.textContent = "This week";
+    var heading = document.createElement("h3");
+    heading.textContent = current.title;
+    var when = document.createElement("p");
+    when.className = "pattern-date";
+    if (current.date) {
+      var time = document.createElement("time");
+      time.dateTime = String(current.date).slice(0, 10);
+      time.textContent = formatDate(current.date);
+      when.append(time);
+    }
+    var what = document.createElement("p");
+    what.textContent = current.what || "";
+    card.append(kicker, heading, when, what);
+    function addList(label, values) {
+      if (!Array.isArray(values) || !values.length) return;
+      var title = document.createElement("h4");
+      title.textContent = label;
+      var list = document.createElement("ul");
+      values.forEach(function (value) {
+        if (typeof value !== "string" || !value.trim()) return;
+        var item = document.createElement("li");
+        item.textContent = value.trim();
+        list.append(item);
+      });
+      if (list.children.length) card.append(title, list);
+    }
+    addList("What it is", []);
+    addList("Red flags", current.redFlags);
+    addList("How to detect it with data", current.detect);
+    host.append(card);
+
+    var past = Array.isArray(data.past) ? data.past : [];
+    var archive = document.createElement("section");
+    archive.className = "past-patterns";
+    var archiveTitle = document.createElement("h3");
+    archiveTitle.textContent = "Past patterns";
+    archive.append(archiveTitle);
+    if (!past.length) {
+      var none = document.createElement("p");
+      none.className = "pulse-updated";
+      none.textContent = "Earlier patterns will be listed here.";
+      archive.append(none);
+    } else {
+      var list = document.createElement("ul");
+      past.forEach(function (entry) {
+        if (!entry || typeof entry.title !== "string") return;
+        var item = document.createElement("li");
+        var label = entry.title;
+        if (entry.date) label += " · " + formatDate(entry.date);
+        item.textContent = label;
+        list.append(item);
+      });
+      archive.append(list);
+    }
+    host.append(archive);
+  } catch (error) {
+    host.innerHTML = "";
+    var fallback = document.createElement("p");
+    fallback.className = "empty-news";
+    fallback.textContent = "The weekly pattern loads from a data file. None is available in this view yet.";
+    host.append(fallback);
+  }
+}
+
+function mulberry32(seed) {
+  var a = seed >>> 0;
+  return function () {
+    a = (a + 0x6D2B79F5) >>> 0;
+    var t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+var syntheticRows = (function () {
+  var random = mulberry32(20261125);
+  var rows = [];
+  var i;
+  for (i = 0; i < 240; i += 1) {
+    var score = Math.min(100, Math.max(0, Math.round(random() * 100)));
+    var chance = 1 / (1 + Math.exp(-(score - 62) / 9));
+    rows.push({ score: score, fraud: random() < chance });
+  }
+  return rows;
+}());
+
+function drawSimulator() {
+  var slider = document.querySelector("#threshold");
+  var canvas = document.querySelector("#sim-chart");
+  if (!slider || !canvas) return;
+  var threshold = Number(slider.value);
+  var value = document.querySelector("#threshold-value");
+  if (value) value.textContent = String(threshold);
+  var flagged = 0;
+  var caught = 0;
+  var falsePos = 0;
+  syntheticRows.forEach(function (row) {
+    if (row.score < threshold) return;
+    flagged += 1;
+    if (row.fraud) caught += 1;
+    else falsePos += 1;
+  });
+  var flaggedEl = document.querySelector("#sim-flagged");
+  var caughtEl = document.querySelector("#sim-caught");
+  var falseEl = document.querySelector("#sim-false");
+  if (flaggedEl) flaggedEl.textContent = String(flagged);
+  if (caughtEl) caughtEl.textContent = String(caught);
+  if (falseEl) falseEl.textContent = String(falsePos);
+
+  var css = getComputedStyle(document.body);
+  var fraudColor = css.color || "#e8f2fb";
+  var accent = css.getPropertyValue("--accent").trim() || "#9ad8ff";
+  var muted = css.getPropertyValue("--muted").trim() || "#c5d7e8";
+  var bins = 10;
+  var fraudBins = new Array(bins).fill(0);
+  var clearBins = new Array(bins).fill(0);
+  syntheticRows.forEach(function (row) {
+    var index = Math.min(bins - 1, Math.floor(row.score / 10));
+    if (row.fraud) fraudBins[index] += 1;
+    else clearBins[index] += 1;
+  });
+  var peak = 1;
+  fraudBins.forEach(function (count, index) { peak = Math.max(peak, count + clearBins[index]); });
+  var ratio = window.devicePixelRatio || 1;
+  var width = canvas.clientWidth || 640;
+  var height = 220;
+  canvas.width = Math.round(width * ratio);
+  canvas.height = Math.round(height * ratio);
+  var ctx = canvas.getContext("2d");
+  ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+  ctx.clearRect(0, 0, width, height);
+  var pad = 16;
+  var gap = 6;
+  var barWidth = (width - pad * 2 - gap * (bins - 1)) / bins;
+  for (var b = 0; b < bins; b += 1) {
+    var x = pad + b * (barWidth + gap);
+    var total = fraudBins[b] + clearBins[b];
+    var full = (total / peak) * (height - pad * 2);
+    var fraudH = (fraudBins[b] / peak) * (height - pad * 2);
+    var y = height - pad - full;
+    ctx.fillStyle = muted;
+    ctx.globalAlpha = 0.45;
+    ctx.fillRect(x, y, barWidth, full - fraudH);
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = accent;
+    ctx.fillRect(x, height - pad - fraudH, barWidth, fraudH);
+  }
+  var lineX = pad + (threshold / 100) * (width - pad * 2);
+  ctx.strokeStyle = fraudColor;
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(lineX, pad);
+  ctx.lineTo(lineX, height - pad);
+  ctx.stroke();
+}
+
+var thresholdInput = document.querySelector("#threshold");
+if (thresholdInput) {
+  thresholdInput.addEventListener("input", drawSimulator);
+  drawSimulator();
+}
+
+if (!reducedMotion && "IntersectionObserver" in window) {
+  var revealBlocks = Array.prototype.slice.call(document.querySelectorAll("main > section:not(.hero)"));
+  revealBlocks.forEach(function (block) { block.classList.add("reveal"); });
+  var revealObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("is-in");
+      revealObserver.unobserve(entry.target);
+    });
+  }, { threshold: 0.12 });
+  revealBlocks.forEach(function (block) { revealObserver.observe(block); });
+}
+
 loadNews();
+loadPattern();
