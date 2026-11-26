@@ -248,6 +248,22 @@ if (explorer) {
   syncProjects();
 }
 
+var academicToggle = document.querySelector(".academic-toggle");
+var academicPanel = document.querySelector("#academic-panel");
+var academicCount = document.querySelector("#academic-count");
+if (academicCount && academicPanel) {
+  academicCount.textContent = String(academicPanel.querySelectorAll(".scroller-track > li").length);
+}
+if (academicToggle && academicPanel) {
+  academicPanel.inert = true;
+  academicToggle.addEventListener("click", function () {
+    var open = academicToggle.getAttribute("aria-expanded") !== "true";
+    academicToggle.setAttribute("aria-expanded", open ? "true" : "false");
+    academicPanel.classList.toggle("is-open", open);
+    academicPanel.inert = !open;
+  });
+}
+
 Array.prototype.forEach.call(document.querySelectorAll("[data-scroller]"), function (scroller) {
   var track = scroller.querySelector(".scroller-track");
   if (!track) return;

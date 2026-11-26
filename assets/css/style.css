@@ -539,8 +539,44 @@ h1 {
 
 .case-points p { margin: 0.25rem 0 0; }
 
+.academic { margin-top: 1.6rem; }
+
+.academic-heading { margin: 0; font-size: 1.15rem; font-weight: 600; }
+
+.academic-toggle {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0.35rem 0;
+  border: 0;
+  background: none;
+  color: var(--text);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.academic-toggle:hover { color: var(--accent); }
+
+.academic-cue[data-open] { display: none; }
+
+.academic-toggle[aria-expanded="true"] .academic-cue[data-closed] { display: none; }
+
+.academic-toggle[aria-expanded="true"] .academic-cue[data-open] { display: inline; }
+
+.academic-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s ease;
+}
+
+.academic-panel.is-open { grid-template-rows: 1fr; }
+
+.academic-clip { overflow: hidden; }
+
 .scroller {
-  margin-top: 2.4rem;
+  margin-top: 0.85rem;
   width: 100%;
   max-width: 100%;
   min-width: 0;
@@ -1150,6 +1186,7 @@ h1 {
   .ticker-track { animation: none; }
   .ticker-viewport { overflow-x: auto; }
   .js .reveal { opacity: 1; transform: none; transition: none; }
+  .academic-panel { transition: none; }
   *,
   *::before,
   *::after {
