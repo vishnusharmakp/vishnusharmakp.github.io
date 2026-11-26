@@ -214,24 +214,11 @@ section[id] { scroll-margin-top: calc(var(--header) + 0.8rem); }
 }
 
 .monogram {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
   width: 36px;
   height: 36px;
   flex: 0 0 36px;
-  border-radius: 9px;
-  background: #071422;
-  color: #9ad8ff;
-  font-weight: 700;
-  font-size: 0.82rem;
-  letter-spacing: 0.04em;
-  line-height: 1;
-}
-
-[data-theme="light"] .monogram {
-  background: #0a6480;
-  color: #f4fbff;
+  border-radius: 50%;
 }
 
 .chapter {
