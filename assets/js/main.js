@@ -51,11 +51,42 @@ function setMenuOpen(open) {
   sectionToggle.setAttribute("aria-expanded", open ? "true" : "false");
 }
 
+function menuIsOpen() {
+  return !!(header && header.classList.contains("is-menu-open"));
+}
+
+function goToSection(id) {
+  if (!id) return;
+  showTab(tabForId(id));
+  if (location.hash !== "#" + id) history.pushState(null, "", "#" + id);
+  setMenuOpen(false);
+  setTimeout(function () { scrollToSection(id); }, 0);
+}
+
 if (sectionToggle) {
   sectionToggle.addEventListener("click", function () {
-    setMenuOpen(!header.classList.contains("is-menu-open"));
+    setMenuOpen(!menuIsOpen());
   });
 }
+
+if (sectionMenu) {
+  sectionMenu.addEventListener("click", function (event) {
+    var link = event.target.closest("a");
+    if (!link || !sectionMenu.contains(link)) return;
+    var href = link.getAttribute("href") || "";
+    if (href.charAt(0) !== "#") return;
+    event.preventDefault();
+    goToSection(href.slice(1));
+  });
+}
+
+document.addEventListener("pointerdown", function (event) {
+  if (!menuIsOpen()) return;
+  var target = event.target;
+  if (sectionMenu && sectionMenu.contains(target)) return;
+  if (sectionToggle && sectionToggle.contains(target)) return;
+  setMenuOpen(false);
+});
 
 document.addEventListener("keydown", function (event) {
   if (event.key === "Escape") setMenuOpen(false);
@@ -95,7 +126,10 @@ function scrollToSection(id) {
     return;
   }
   var target = document.getElementById(id);
-  if (target) target.scrollIntoView();
+  if (!target) return;
+  var headerH = header ? header.getBoundingClientRect().height : 0;
+  var top = target.getBoundingClientRect().top + window.scrollY - headerH - 8;
+  window.scrollTo(0, Math.max(0, top));
 }
 
 function applyHash(shouldScroll) {
@@ -659,11 +693,23 @@ function drawSimulator() {
   });
   var peak = 1;
   fraudBins.forEach(function (count, index) { peak = Math.max(peak, count + clearBins[index]); });
-  var ratio = window.devicePixelRatio || 1;
-  var width = canvas.clientWidth || 640;
+  var view = document.documentElement.clientWidth || window.innerWidth || 320;
+  var parentWidth = canvas.parentElement ? canvas.parentElement.clientWidth : 0;
+  var width = parentWidth > 0 && parentWidth <= view + 1 ? parentWidth : view;
+  width = Math.max(1, Math.round(Math.min(width, view)));
   var height = 220;
-  canvas.width = Math.round(width * ratio);
-  canvas.height = Math.round(height * ratio);
+  var shown = canvas.getClientRects().length > 0;
+  var ratio = shown ? Math.min(window.devicePixelRatio || 1, 3) : 1;
+  canvas.style.width = "100%";
+  canvas.style.maxWidth = "100%";
+  canvas.style.height = height + "px";
+  var bitmapW = Math.round(width * ratio);
+  var bitmapH = Math.round(height * ratio);
+  if (canvas.width !== bitmapW) canvas.width = bitmapW;
+  if (canvas.height !== bitmapH) canvas.height = bitmapH;
+  canvas.style.width = "100%";
+  canvas.style.maxWidth = "100%";
+  canvas.style.height = height + "px";
   var ctx = canvas.getContext("2d");
   ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
   ctx.clearRect(0, 0, width, height);
