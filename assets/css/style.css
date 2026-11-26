@@ -221,6 +221,12 @@ section[id] { scroll-margin-top: calc(var(--header) + 0.8rem); }
   border-radius: 50%;
 }
 
+.monogram-light { display: none; }
+
+[data-theme="light"] .monogram-dark { display: none; }
+
+[data-theme="light"] .monogram-light { display: block; }
+
 .chapter {
   margin-left: auto;
   display: flex;
