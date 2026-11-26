@@ -37,41 +37,43 @@
 html { scroll-behavior: smooth; }
 
 html,
-body {
+body,
+.page-clip {
   overflow-x: hidden;
+  overflow-x: clip;
   max-width: 100%;
   width: 100%;
 }
 
+.page-clip {
+  min-width: 0;
+  position: relative;
+}
+
 .page-decor {
   position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
   max-width: 100%;
   overflow: hidden;
   pointer-events: none;
   z-index: 0;
-}
-
-.page-decor::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  max-width: 100%;
-  opacity: 0.16;
-  background-image: url("../images/network.svg");
-  background-repeat: no-repeat;
-  background-position: center top;
-  background-size: 100% auto;
+  background:
+    radial-gradient(ellipse 42% 30% at 78% 16%, rgba(154, 216, 255, 0.16), transparent 70%),
+    radial-gradient(ellipse 48% 34% at 12% 0%, rgba(70, 150, 210, 0.16), transparent 64%),
+    url("../images/network.svg") center / cover no-repeat;
 }
 
 main,
+.site-footer {
+  position: relative;
+  z-index: 1;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: clip;
+}
+
 .tab-panel,
 .wrap,
 .hero,
@@ -88,9 +90,7 @@ body {
   font-size: 1.0625rem;
   line-height: 1.6;
   color: var(--text);
-  background:
-    radial-gradient(ellipse 70% 40% at 0% -10%, rgba(70, 150, 210, 0.18), transparent 50%),
-    var(--bg);
+  background: var(--bg);
 }
 
 body.nav-open { overflow: hidden; }
@@ -161,8 +161,14 @@ section[id] { scroll-margin-top: calc(var(--header) + 0.8rem); }
 .site-header {
   position: sticky;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 30;
+  width: 100%;
+  max-width: 100%;
+  overflow: clip;
   background: rgba(4, 16, 28, 0.9);
+  -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--line);
   transition: transform 0.25s ease;
@@ -322,33 +328,6 @@ section[id] { scroll-margin-top: calc(var(--header) + 0.8rem); }
   position: relative;
   overflow: hidden;
   padding: 2.2rem 0 1rem;
-}
-
-.hero-glow,
-.network {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-
-.hero-glow {
-  background: radial-gradient(420px circle at var(--mx, 72%) var(--my, 28%), rgba(154, 216, 255, 0.2), transparent 58%);
-}
-
-.network {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: cover;
-  opacity: 0.22;
-  overflow: hidden;
-  pointer-events: none;
 }
 
 .hero-grid {
@@ -623,6 +602,8 @@ h1 {
 }
 
 .academic-panel.is-open { grid-template-rows: 1fr; }
+
+.academic-panel:not(.is-open) .scroller { display: none; }
 
 .academic-clip { overflow: hidden; }
 
@@ -1146,7 +1127,7 @@ h1 {
   overflow: hidden;
   max-width: 100%;
   min-width: 0;
-  contain: inline-size;
+  contain: paint;
 }
 
 .ticker-track {
@@ -1305,15 +1286,12 @@ h1 {
 
 .js .reveal.is-in { opacity: 1; transform: none; }
 
-[data-theme="light"] body {
+[data-theme="light"] .page-decor {
   background:
-    radial-gradient(ellipse 85% 46% at 0% -10%, rgba(48, 168, 196, 0.28), transparent 56%),
-    radial-gradient(ellipse 55% 38% at 100% 0%, rgba(16, 78, 120, 0.14), transparent 52%),
-    radial-gradient(ellipse 70% 36% at 50% 100%, rgba(90, 186, 204, 0.16), transparent 55%),
-    #e6f0f7;
+    radial-gradient(ellipse 46% 32% at 80% 12%, rgba(48, 168, 196, 0.22), transparent 68%),
+    radial-gradient(ellipse 44% 30% at 8% 0%, rgba(16, 78, 120, 0.12), transparent 62%),
+    url("../images/network.svg") center / cover no-repeat;
 }
-
-[data-theme="light"] .page-decor::before { opacity: 0.28; }
 
 [data-theme="light"] main,
 [data-theme="light"] .site-footer { position: relative; z-index: 1; }
