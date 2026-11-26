@@ -15,7 +15,6 @@ function applyTheme(theme) {
   document.documentElement.setAttribute("data-theme", next);
   if (!themeToggle) return;
   var toLight = next === "dark";
-  themeToggle.textContent = toLight ? "Light" : "Dark";
   themeToggle.setAttribute("aria-pressed", next === "light" ? "true" : "false");
   themeToggle.setAttribute("aria-label", toLight ? "Switch to light theme" : "Switch to dark theme");
 }
