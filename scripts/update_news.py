@@ -22,9 +22,20 @@ from xml.etree import ElementTree as ET
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "data" / "news.json"
 USER_AGENT = "VishnuSharmaPortfolio/1.0 (+https://www.vishnusharmakp.com)"
-TARGET = 10
+TARGET = 12
 MAX_PER_TOPIC = 3
 MIN_ITEMS = 8
+
+# Every kept headline must name one of these in the title. "fraud" also covers
+# "payment fraud". "account takeover" is the spelled-out form of ATO.
+REQUIRED_TITLE_TERMS: tuple[str, ...] = (
+    "fraud",
+    "scam",
+    "chargeback",
+    "identity theft",
+    "phishing",
+    "account takeover",
+)
 
 # Date windows keep a thin news week from emptying the page. Newest items are kept.
 TOPICS: tuple[tuple[str, str], ...] = (
@@ -46,7 +57,7 @@ TOPICS: tuple[tuple[str, str], ...] = (
     ),
     (
         "Data & AI",
-        '("machine learning" OR "generative AI" OR "data science") (OpenAI OR Google OR Microsoft OR Nvidia OR analytics) when:21d',
+        '("machine learning" OR "artificial intelligence" OR "generative AI") (fraud OR scam OR phishing OR chargeback) when:30d',
     ),
 )
 
@@ -63,12 +74,10 @@ TITLE_TERMS: dict[str, tuple[str, ...]] = {
     ),
     "Scams & financial crime": ("scam", "wire fraud", "phishing", "financial crime"),
     "Data & AI": (
-        "machine learning",
-        "data science",
-        "generative ai",
-        "artificial intelligence",
-        "analytics",
-        "openai",
+        "fraud",
+        "scam",
+        "phishing",
+        "chargeback",
     ),
 }
 
@@ -165,16 +174,33 @@ def too_similar(left: set[str], right: set[str]) -> bool:
     return overlap >= 0.42
 
 
+def looks_english(title: str) -> bool:
+    letters = [character for character in title if character.isalpha()]
+    if len(letters) < 8:
+        return False
+    latin = [character for character in letters if "a" <= character.lower() <= "z"]
+    return len(latin) / len(letters) >= 0.9
+
+
+def has_required_keyword(title: str) -> bool:
+    lowered = title.casefold()
+    if any(term in lowered for term in REQUIRED_TITLE_TERMS):
+        return True
+    return re.search(r"\bato\b", lowered) is not None
+
+
 def title_ok(topic: str, title: str) -> bool:
     lowered = title.casefold().strip()
     if lowered.startswith("how to "):
         return False
     if "correction" in lowered or "top picks" in lowered or "our top" in lowered:
         return False
+    if not looks_english(title) or not has_required_keyword(lowered):
+        return False
     terms = TITLE_TERMS.get(topic, ())
-    if not terms:
-        return True
-    return any(term in lowered for term in terms)
+    if terms and not any(term in lowered for term in terms):
+        return False
+    return True
 
 
 def select_items(buckets: dict[str, list[dict[str, str]]]) -> list[dict[str, str]]:

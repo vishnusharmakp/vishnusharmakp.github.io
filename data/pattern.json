@@ -1,0 +1,22 @@
+{
+  "current": {
+    "id": "ato-2026-11-23",
+    "title": "Account takeover",
+    "date": "2026-11-23",
+    "what": "Account takeover is when someone other than the customer gets into an existing account and uses it. Public descriptions of the pattern usually point to stolen passwords, phishing, credential stuffing, SIM swap, or malware, followed by a change to the phone, email, address, or payout destination.",
+    "redFlags": [
+      "A login from a new device or an unusual network, then a contact or payout change in the same session",
+      "A password or multi-factor reset immediately before a new payee, shipping address, or phone number",
+      "Many failed sign-ins, then one success, on accounts that share a device or IP address",
+      "Profile changes clustered with a payment, transfer, or high-risk order"
+    ],
+    "detect": [
+      "Join login events (time, IP, device) to account-change and payment events on the same customer",
+      "Look for short sequences: failed logins, a success, a contact change, then a payment",
+      "Compare the session with that customer's usual device, network, and time of day",
+      "Group attempts that share a device or IP across many accounts, which is the shape of credential stuffing",
+      "Review velocity of password resets and authenticator changes before money movement"
+    ]
+  },
+  "past": []
+}
