@@ -47,7 +47,7 @@
       "jobTitle": "Data Analyst (Fraud & Risk Prevention)",
       "url": "https://www.vishnusharmakp.com/",
       "email": "vishnusharmakp@gmail.com",
-      "image": "https://www.vishnusharmakp.com/assets/images/portrait-hero.jpg",
+      "image": "https://www.vishnusharmakp.com/assets/images/portrait-about.jpg",
       "worksFor": { "@type": "Organization", "name": "Likewize" },
       "alumniOf": [
         { "@type": "CollegeOrUniversity", "name": "The University of Texas at Arlington" },
@@ -67,54 +67,41 @@
 
   <header class="site-header">
     <div class="wrap header-inner">
-      <a class="brand" href="#top">
+      <a class="brand" href="#profile">
         <img src="assets/images/apple-touch-icon.png" alt="" width="36" height="36">
         <span>Vishnu Sharma</span>
       </a>
-      <button class="chapter" type="button" id="chapter-btn" aria-haspopup="dialog" aria-controls="overlay-nav">
-        <span class="chapter-kicker">Section</span>
-        <span id="chapter">Intro</span>
-      </button>
+      <div class="tab-switch" role="tablist" aria-label="Primary">
+        <a class="tab-link" id="tab-profile" role="tab" href="#profile" aria-controls="profile" aria-selected="true">Profile</a>
+        <a class="tab-link" id="tab-insights" role="tab" href="#insights" aria-controls="insights" aria-selected="false">Fraud Insights</a>
+      </div>
       <div class="header-actions">
         <button class="theme-toggle" type="button" id="theme-toggle" aria-pressed="false">Light</button>
         <a class="btn btn-primary header-resume" href="https://drive.google.com/file/d/1wiUhvhvfNVdmsKWhYQLQjOPvQz7Zo1VT/view?usp=drive_link" target="_blank" rel="noopener noreferrer">Resume<span class="sr-only"> (opens in a new tab)</span></a>
-        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="overlay-nav" aria-haspopup="dialog">Menu</button>
+        <button class="nav-toggle" type="button" id="section-toggle" aria-expanded="false" aria-controls="section-menu">Sections</button>
       </div>
     </div>
-    <noscript>
-      <nav class="noscript-nav wrap" aria-label="Sections">
+    <div class="section-bar" id="section-menu">
+      <nav class="section-nav wrap" data-for="profile" aria-label="Profile sections">
+        <a href="#top">Hero</a>
+        <a href="#impact">Impact</a>
         <a href="#about">About</a>
-        <a href="#pattern">Pattern</a>
         <a href="#experience">Experience</a>
         <a href="#work">Work</a>
         <a href="#skills">Skills</a>
         <a href="#education">Education</a>
-        <a href="#news">News</a>
         <a href="#contact">Contact</a>
       </nav>
-    </noscript>
+      <nav class="section-nav wrap" data-for="insights" aria-label="Fraud Insights sections" hidden>
+        <a href="#news">News</a>
+        <a href="#pattern">Pattern</a>
+        <a href="#simulator">Simulator</a>
+      </nav>
+    </div>
   </header>
 
-  <div id="overlay-nav" class="overlay-nav" role="dialog" aria-modal="true" aria-labelledby="overlay-title" hidden>
-    <div class="overlay-bar">
-      <p id="overlay-title">Go to a section</p>
-      <button type="button" data-close-nav>Close</button>
-    </div>
-    <nav aria-label="Sections">
-      <ol>
-        <li><a href="#about"><span>01</span>About</a></li>
-        <li><a href="#pattern"><span>02</span>Pattern</a></li>
-        <li><a href="#experience"><span>03</span>Experience</a></li>
-        <li><a href="#work"><span>04</span>Work</a></li>
-        <li><a href="#skills"><span>05</span>Skills</a></li>
-        <li><a href="#education"><span>06</span>Education</a></li>
-        <li><a href="#news"><span>07</span>News</a></li>
-        <li><a href="#contact"><span>08</span>Contact</a></li>
-      </ol>
-    </nav>
-  </div>
-
   <main id="content">
+    <div id="profile" class="tab-panel" data-panel="profile">
     <section class="hero" id="top" data-chapter="Intro">
       <div class="hero-glow" aria-hidden="true"></div>
       <img class="network" src="assets/images/network.svg" alt="">
@@ -122,7 +109,7 @@
         <div class="hero-grid">
           <div class="hero-copy">
             <p class="eyebrow">Fraud &amp; risk analytics</p>
-            <h1>Vishnu<br>Sharma K&nbsp;P</h1>
+            <h1>Vishnu Sharma K&nbsp;P</h1>
             <p class="role">Data Analyst (Fraud &amp; Risk Prevention)</p>
             <p class="tagline">Data that drives decisions.</p>
             <div class="actions">
@@ -131,12 +118,6 @@
               <a class="btn btn-ghost" href="mailto:vishnusharmakp@gmail.com">Email</a>
             </div>
           </div>
-          <figure class="hero-portrait">
-            <picture>
-              <source srcset="assets/images/portrait-hero.webp" type="image/webp">
-              <img src="assets/images/portrait-hero.jpg" width="720" height="720" alt="Portrait of Vishnu Sharma K P in a navy suit." fetchpriority="high">
-            </picture>
-          </figure>
         </div>
       </div>
     </section>
@@ -145,6 +126,7 @@
       <div class="wrap pulse-bar">
         <h2 id="pulse-title">Fraud Pulse</h2>
         <p id="pulse-updated" class="pulse-updated">Headlines load from the daily news file.</p>
+        <a class="pulse-more" href="#insights">See all insights</a>
       </div>
       <div class="ticker" id="ticker">
         <p id="pulse-empty" class="pulse-empty wrap">Headlines refresh daily. None are loaded right now.</p>
@@ -186,20 +168,7 @@
       </div>
     </section>
 
-    <section class="section" id="pattern" data-chapter="Pattern">
-      <div class="wrap">
-        <header class="section-head">
-          <p class="eyebrow">02</p>
-          <h2>Fraud pattern of the week</h2>
-          <p>A public pattern, written for analysts. No customer data and no performance numbers.</p>
-        </header>
-        <div id="pattern-card">
-          <p class="empty-news">The weekly pattern loads from a data file. None is available in this view yet.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="about" data-chapter="About">
+        <section class="section" id="about" data-chapter="About">
       <div class="wrap about-grid">
         <div>
           <header class="section-head">
@@ -365,32 +334,6 @@
           </div>
         </div>
 
-        <section class="simulator" id="simulator" aria-labelledby="sim-title">
-          <p class="kicker">Illustrative example</p>
-          <h3 id="sim-title">Fraud rule simulator</h3>
-          <p class="sim-note" id="sim-note">These rows are generated in your browser. They are synthetic example data, not claims, customers, or results. Drag the threshold to see how a simple “score at or above the line” rule changes the counts.</p>
-          <div class="sim-control">
-            <label for="threshold">Risk-score threshold</label>
-            <output id="threshold-value" for="threshold">60</output>
-            <input id="threshold" type="range" min="0" max="100" value="60" aria-describedby="sim-note">
-          </div>
-          <dl class="sim-metrics">
-            <div>
-              <dt>Flagged</dt>
-              <dd id="sim-flagged">0</dd>
-            </div>
-            <div>
-              <dt>Caught fraud</dt>
-              <dd id="sim-caught">0</dd>
-            </div>
-            <div>
-              <dt>False positives</dt>
-              <dd id="sim-false">0</dd>
-            </div>
-          </dl>
-          <canvas id="sim-chart" width="640" height="220">A chart of the synthetic scores appears here when JavaScript runs.</canvas>
-        </section>
-
         <div class="scroller" data-scroller>
           <div class="scroller-bar">
             <h3 class="subhead">Academic projects</h3>
@@ -550,6 +493,28 @@
       </div>
     </section>
 
+    <section class="section" id="contact" data-chapter="Contact">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="eyebrow">08</p>
+          <h2>Contact</h2>
+          <p>Email or LinkedIn.</p>
+        </header>
+        <ul class="contact-list">
+          <li>
+            <p class="kicker">Email</p>
+            <a href="mailto:vishnusharmakp@gmail.com">vishnusharmakp@gmail.com</a>
+          </li>
+          <li>
+            <p class="kicker">LinkedIn</p>
+            <a href="https://www.linkedin.com/in/vishnusharmakp/" target="_blank" rel="me noopener noreferrer">linkedin.com/in/vishnusharmakp<span class="sr-only"> (opens in a new tab)</span></a>
+          </li>
+        </ul>
+      </div>
+    </section>
+    </div>
+
+    <div id="insights" class="tab-panel" data-panel="insights" hidden>
     <section class="news-band" id="news" data-chapter="News" aria-labelledby="news-title">
       <div class="wrap">
         <header class="section-head">
@@ -575,25 +540,50 @@
       </div>
     </section>
 
-    <section class="section" id="contact" data-chapter="Contact">
+
+<section class="section" id="pattern" data-chapter="Pattern">
       <div class="wrap">
         <header class="section-head">
-          <p class="eyebrow">08</p>
-          <h2>Contact</h2>
-          <p>Email or LinkedIn.</p>
+          <p class="eyebrow">02</p>
+          <h2>Fraud pattern of the week</h2>
+          <p>A public pattern, written for analysts. No customer data and no performance numbers.</p>
         </header>
-        <ul class="contact-list">
-          <li>
-            <p class="kicker">Email</p>
-            <a href="mailto:vishnusharmakp@gmail.com">vishnusharmakp@gmail.com</a>
-          </li>
-          <li>
-            <p class="kicker">LinkedIn</p>
-            <a href="https://www.linkedin.com/in/vishnusharmakp/" target="_blank" rel="me noopener noreferrer">linkedin.com/in/vishnusharmakp<span class="sr-only"> (opens in a new tab)</span></a>
-          </li>
-        </ul>
+        <div id="pattern-card">
+          <p class="empty-news">The weekly pattern loads from a data file. None is available in this view yet.</p>
+        </div>
       </div>
     </section>
+
+    <section class="section" id="simulator-wrap" data-chapter="Simulator">
+      <div class="wrap">
+        <section class="simulator" id="simulator" aria-labelledby="sim-title">
+          <p class="kicker">Illustrative example</p>
+          <h3 id="sim-title">Fraud rule simulator</h3>
+          <p class="sim-note" id="sim-note">These rows are generated in your browser. They are synthetic example data, not claims, customers, or results. Drag the threshold to see how a simple “score at or above the line” rule changes the counts.</p>
+          <div class="sim-control">
+            <label for="threshold">Risk-score threshold</label>
+            <output id="threshold-value" for="threshold">60</output>
+            <input id="threshold" type="range" min="0" max="100" value="60" aria-describedby="sim-note">
+          </div>
+          <dl class="sim-metrics">
+            <div>
+              <dt>Flagged</dt>
+              <dd id="sim-flagged">0</dd>
+            </div>
+            <div>
+              <dt>Caught fraud</dt>
+              <dd id="sim-caught">0</dd>
+            </div>
+            <div>
+              <dt>False positives</dt>
+              <dd id="sim-false">0</dd>
+            </div>
+          </dl>
+          <canvas id="sim-chart" width="640" height="220">A chart of the synthetic scores appears here when JavaScript runs.</canvas>
+        </section>
+      </div>
+    </section>
+    </div>
   </main>
 
   <footer class="site-footer">
