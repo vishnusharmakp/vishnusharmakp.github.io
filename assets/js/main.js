@@ -63,6 +63,14 @@ function goToSection(id) {
   setTimeout(function () { scrollToSection(id); }, 0);
 }
 
+var brandLink = document.querySelector(".brand");
+if (brandLink) {
+  brandLink.addEventListener("click", function (event) {
+    event.preventDefault();
+    goToSection("profile");
+  });
+}
+
 if (sectionToggle) {
   sectionToggle.addEventListener("click", function () {
     setMenuOpen(!menuIsOpen());
