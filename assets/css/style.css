@@ -38,8 +38,19 @@ html { scroll-behavior: smooth; }
 
 html,
 body {
-  overflow-x: clip;
+  overflow-x: hidden;
   max-width: 100%;
+}
+
+main,
+.tab-panel,
+.wrap,
+.hero,
+.pulse,
+.ticker,
+.ticker-viewport {
+  max-width: 100%;
+  min-width: 0;
 }
 
 body {
@@ -1079,9 +1090,13 @@ h1 {
 .pulse-updated,
 .pulse-empty { margin: 0; color: var(--muted); font-size: 0.92rem; }
 
-.ticker { max-width: 100%; overflow: hidden; }
-
-.ticker-viewport { overflow: hidden; width: 100%; max-width: 100%; }
+.ticker,
+.ticker-viewport {
+  overflow: hidden;
+  max-width: 100%;
+  min-width: 0;
+  contain: inline-size;
+}
 
 .ticker-track {
   display: flex;
@@ -1311,7 +1326,11 @@ h1 {
   html { scroll-behavior: auto; }
   .site-header { transition: none; }
   .ticker-track { animation: none; }
-  .ticker-viewport { overflow-x: auto; }
+  .ticker-viewport {
+    overflow-x: auto;
+    max-width: 100%;
+    contain: inline-size;
+  }
   .js .reveal { opacity: 1; transform: none; transition: none; }
   .academic-panel { transition: none; }
   *,
