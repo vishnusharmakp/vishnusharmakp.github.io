@@ -59,8 +59,8 @@ function goToSection(id) {
   if (!id) return;
   showTab(tabForId(id));
   if (location.hash !== "#" + id) history.pushState(null, "", "#" + id);
-  scrollToSection(id);
   setMenuOpen(false);
+  setTimeout(function () { scrollToSection(id); }, 0);
 }
 
 if (sectionToggle) {
@@ -76,7 +76,6 @@ if (sectionMenu) {
     var href = link.getAttribute("href") || "";
     if (href.charAt(0) !== "#") return;
     event.preventDefault();
-    link.blur();
     goToSection(href.slice(1));
   });
 }
@@ -127,7 +126,10 @@ function scrollToSection(id) {
     return;
   }
   var target = document.getElementById(id);
-  if (target) target.scrollIntoView();
+  if (!target) return;
+  var headerH = header ? header.getBoundingClientRect().height : 0;
+  var top = target.getBoundingClientRect().top + window.scrollY - headerH - 8;
+  window.scrollTo(0, Math.max(0, top));
 }
 
 function applyHash(shouldScroll) {
