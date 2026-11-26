@@ -10,6 +10,7 @@
   --accent: #9ad8ff;
   --ink: #07111c;
   --focus: #ffffff;
+  --tab-on: #07111c;
   --header: 7.75rem;
   --font: Outfit, "Segoe UI", sans-serif;
   --radius: 18px;
@@ -26,6 +27,7 @@
   --accent: #0a6480;
   --ink: #f4fbff;
   --focus: #08364c;
+  --tab-on: #ffffff;
   --shadow: 0 12px 30px rgba(16, 48, 78, 0.08);
   color-scheme: light;
 }
@@ -211,11 +213,19 @@ section[id] { scroll-margin-top: calc(var(--header) + 0.8rem); }
   font-weight: 600;
 }
 
-.brand img {
-  width: 36px;
-  height: 36px;
-  border-radius: 9px;
+.monogram {
+  display: block;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  border-radius: 50%;
 }
+
+.monogram-light { display: none; }
+
+[data-theme="light"] .monogram-dark { display: none; }
+
+[data-theme="light"] .monogram-light { display: block; }
 
 .chapter {
   margin-left: auto;
@@ -1020,7 +1030,7 @@ h1 {
 }
 
 @media (max-width: 640px) {
-  .brand span { display: none; }
+  .brand-name { display: none; }
 }
 
 [data-theme="light"] .tab-switch { background: rgba(255, 255, 255, 0.8); }
@@ -1067,7 +1077,14 @@ h1 {
   background: rgba(8, 24, 42, 0.45);
 }
 
-.tab-link {
+.tab-link,
+.tab-link:hover,
+.tab-link:focus,
+.tab-link:visited,
+[data-theme="light"] .tab-link,
+[data-theme="light"] .tab-link:hover,
+[data-theme="light"] .tab-link:focus,
+[data-theme="light"] .tab-link:visited {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1080,9 +1097,16 @@ h1 {
   text-decoration: none;
 }
 
-.tab-link[aria-selected="true"] {
+.tab-link[aria-selected="true"],
+.tab-link[aria-selected="true"]:hover,
+.tab-link[aria-selected="true"]:focus,
+.tab-link[aria-selected="true"]:visited,
+[data-theme="light"] .tab-link[aria-selected="true"],
+[data-theme="light"] .tab-link[aria-selected="true"]:hover,
+[data-theme="light"] .tab-link[aria-selected="true"]:focus,
+[data-theme="light"] .tab-link[aria-selected="true"]:visited {
   background: var(--accent);
-  color: var(--ink);
+  color: var(--tab-on);
 }
 
 .section-bar { border-top: 1px solid var(--line); }
