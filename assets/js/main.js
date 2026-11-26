@@ -51,11 +51,43 @@ function setMenuOpen(open) {
   sectionToggle.setAttribute("aria-expanded", open ? "true" : "false");
 }
 
+function menuIsOpen() {
+  return !!(header && header.classList.contains("is-menu-open"));
+}
+
+function goToSection(id) {
+  if (!id) return;
+  showTab(tabForId(id));
+  if (location.hash !== "#" + id) history.pushState(null, "", "#" + id);
+  scrollToSection(id);
+  setMenuOpen(false);
+}
+
 if (sectionToggle) {
   sectionToggle.addEventListener("click", function () {
-    setMenuOpen(!header.classList.contains("is-menu-open"));
+    setMenuOpen(!menuIsOpen());
   });
 }
+
+if (sectionMenu) {
+  sectionMenu.addEventListener("click", function (event) {
+    var link = event.target.closest("a");
+    if (!link || !sectionMenu.contains(link)) return;
+    var href = link.getAttribute("href") || "";
+    if (href.charAt(0) !== "#") return;
+    event.preventDefault();
+    link.blur();
+    goToSection(href.slice(1));
+  });
+}
+
+document.addEventListener("pointerdown", function (event) {
+  if (!menuIsOpen()) return;
+  var target = event.target;
+  if (sectionMenu && sectionMenu.contains(target)) return;
+  if (sectionToggle && sectionToggle.contains(target)) return;
+  setMenuOpen(false);
+});
 
 document.addEventListener("keydown", function (event) {
   if (event.key === "Escape") setMenuOpen(false);

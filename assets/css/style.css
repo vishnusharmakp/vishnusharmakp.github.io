@@ -1103,6 +1103,11 @@ h1 {
   text-decoration: none;
   white-space: nowrap;
   padding: 0.2rem 0;
+  touch-action: manipulation;
+}
+
+@media (hover: none) {
+  .section-nav a:hover { color: var(--muted); }
 }
 
 .section-nav a[aria-current="true"] {
