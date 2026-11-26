@@ -215,9 +215,9 @@ section[id] { scroll-margin-top: calc(var(--header) + 0.8rem); }
 
 .monogram {
   display: block;
-  width: 36px;
-  height: 36px;
-  flex: 0 0 36px;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
   border-radius: 50%;
 }
 
