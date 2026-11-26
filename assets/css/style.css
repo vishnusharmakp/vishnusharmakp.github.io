@@ -1100,15 +1100,36 @@ h1 {
   padding-inline: 0.4rem;
 }
 
+.ticker-group a,
+.ticker-group a span,
+.ticker-dot {
+  font-family: var(--font);
+  font-size: 16px;
+  font-weight: 500;
+  font-style: normal;
+  line-height: 1.45;
+  letter-spacing: 0;
+  text-transform: none;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
 .ticker-group a {
   color: var(--text);
   text-decoration: none;
-  font-weight: 600;
   white-space: nowrap;
   padding: 0.35rem 0.15rem;
 }
 
 .ticker-group a:hover { color: var(--accent); }
+
+@media (max-width: 768px) {
+  .ticker-group a,
+  .ticker-group a span,
+  .ticker-dot {
+    font-size: 15px;
+  }
+}
 
 .ticker-dot { color: var(--accent); padding-inline: 0.45rem; }
 
