@@ -36,7 +36,10 @@
 html { scroll-behavior: smooth; }
 
 html,
-body { overflow-x: clip; }
+body {
+  overflow-x: clip;
+  max-width: 100%;
+}
 
 body {
   margin: 0;
@@ -300,7 +303,6 @@ section[id] { scroll-margin-top: calc(var(--header) + 0.8rem); }
 
 .hero-grid {
   position: relative;
-  max-width: 18em;
 }
 
 .about-grid {
@@ -323,8 +325,7 @@ h1, h2, h3, h4 { line-height: 1.12; letter-spacing: -0.03em; }
 
 h1 {
   margin: 0;
-  max-width: 11ch;
-  font-size: clamp(3.4rem, 8vw, 7rem);
+  font-size: clamp(3.2rem, 7vw, 6.5rem);
   font-weight: 700;
 }
 
@@ -840,7 +841,32 @@ h1 {
   font-size: 0.88rem;
 }
 
+@media (min-width: 769px) {
+  .hero-grid { max-width: 16em; }
+  .hero h1 { max-width: 12ch; }
+}
+
 @media (max-width: 768px) {
+  .hero-grid,
+  .hero-copy,
+  .hero h1 {
+    max-width: none;
+    width: 100%;
+  }
+
+  .hero-copy,
+  .hero .eyebrow,
+  .hero h1,
+  .hero .role,
+  .hero .tagline {
+    text-align: center;
+  }
+
+  .hero .actions {
+    justify-content: center;
+    width: 100%;
+  }
+
   .about-portrait {
     max-width: 200px;
     margin-inline: auto;
@@ -1010,16 +1036,19 @@ h1 {
 .pulse-updated,
 .pulse-empty { margin: 0; color: var(--muted); font-size: 0.92rem; }
 
-.ticker-viewport { overflow: hidden; width: 100%; }
+.ticker { max-width: 100%; overflow: hidden; }
+
+.ticker-viewport { overflow: hidden; width: 100%; max-width: 100%; }
 
 .ticker-track {
   display: flex;
   width: max-content;
-  animation: ticker 48s linear infinite;
+  animation: ticker var(--ticker-duration, 180s) linear infinite;
 }
 
 .ticker:hover .ticker-track,
-.ticker:focus-within .ticker-track { animation-play-state: paused; }
+.ticker:focus-within .ticker-track,
+.ticker.is-paused .ticker-track { animation-play-state: paused; }
 
 .ticker-group {
   display: flex;

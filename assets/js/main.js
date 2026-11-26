@@ -502,7 +502,24 @@ function renderPulse(items, updated) {
     var copy = first.cloneNode(true);
     copy.setAttribute("aria-hidden", "true");
     track.append(copy);
+    requestAnimationFrame(function () {
+      var distance = first.getBoundingClientRect().width;
+      if (distance > 0) {
+        track.style.setProperty("--ticker-duration", Math.max(24, distance / 50) + "s");
+      }
+    });
   }
+}
+
+var ticker = document.querySelector("#ticker");
+var tickerTrack = document.querySelector("#ticker-track");
+if (ticker && tickerTrack) {
+  var pauseTicker = function () { ticker.classList.add("is-paused"); };
+  var resumeTicker = function () { ticker.classList.remove("is-paused"); };
+  ticker.addEventListener("pointerdown", pauseTicker);
+  ticker.addEventListener("pointerup", resumeTicker);
+  ticker.addEventListener("pointercancel", resumeTicker);
+  ticker.addEventListener("pointerleave", resumeTicker);
 }
 
 async function loadPattern() {
