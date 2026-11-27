@@ -86,7 +86,7 @@
       </div>
       <div class="header-actions">
         <button class="nav-toggle" type="button" id="section-toggle" aria-expanded="false" aria-controls="section-menu">Sections</button>
-        <a class="btn btn-primary header-resume" href="https://drive.google.com/file/d/1wiUhvhvfNVdmsKWhYQLQjOPvQz7Zo1VT/view?usp=drive_link" target="_blank" rel="noopener noreferrer">Resume<span class="sr-only"> (opens in a new tab)</span></a>
+        <a class="btn btn-primary header-resume" href="resume.pdf" target="_blank" rel="noopener noreferrer">Resume<span class="sr-only"> (opens in a new tab)</span></a>
         <button class="theme-toggle" type="button" id="theme-toggle" aria-pressed="false" aria-label="Switch to light theme">
           <svg class="icon-sun" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
             <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"></circle>
@@ -104,7 +104,7 @@
         <a href="#impact">Impact</a>
         <a href="#about">About</a>
         <a href="#experience">Experience</a>
-        <a href="#work">Work</a>
+        <a href="#projects">Projects</a>
         <a href="#skills">Skills</a>
         <a href="#education">Education</a>
         <a href="#contact">Contact</a>
@@ -128,11 +128,17 @@
             <p class="role">Data Analyst (Fraud &amp; Risk Prevention)</p>
             <p class="tagline">Data that drives decisions.</p>
             <div class="actions">
-              <a class="btn btn-primary" href="https://drive.google.com/file/d/1wiUhvhvfNVdmsKWhYQLQjOPvQz7Zo1VT/view?usp=drive_link" target="_blank" rel="noopener noreferrer">Resume<span class="sr-only"> (opens in a new tab)</span></a>
+              <a class="btn btn-primary" href="resume.pdf" target="_blank" rel="noopener noreferrer">Resume<span class="sr-only"> (opens in a new tab)</span></a>
               <a class="btn btn-ghost" href="https://www.linkedin.com/in/vishnusharmakp/" target="_blank" rel="me noopener noreferrer">LinkedIn<span class="sr-only"> (opens in a new tab)</span></a>
               <a class="btn btn-ghost" href="mailto:vishnusharmakp@gmail.com">Email</a>
             </div>
           </div>
+          <aside class="hero-pattern" id="hero-pattern" aria-labelledby="hero-pattern-title" hidden>
+            <p class="kicker">Fraud pattern of the week</p>
+            <h2 id="hero-pattern-title" class="hero-pattern-title"></h2>
+            <p class="hero-pattern-text"></p>
+            <a class="hero-pattern-link" href="#pattern">Red flags and how to stay safe <span aria-hidden="true">→</span></a>
+          </aside>
         </div>
       </div>
     </section>
@@ -172,7 +178,7 @@
             <p class="stat-label">Faster decisions</p>
           </li>
           <li>
-            <p class="stat" data-count="22" data-suffix="%">22%</p>
+            <p class="stat" data-count="30" data-suffix="%">30%</p>
             <p class="stat-label">More fraud visibility</p>
           </li>
           <li>
@@ -192,6 +198,8 @@
           </header>
           <div class="prose">
             <p>Data Analyst with 4+ years at Likewize specializing in fraud and risk analytics. I build the rules, reporting, and data solutions that power Customer Care and Fraud Operations across the US and Canada.</p>
+            <p>What I enjoy most is solving the unknown: digging into the data, finding the anomaly that doesn't fit, and turning it into a rule or a report the team can act on.</p>
+            <p>I also run <a href="#news">Fraud Insights</a> on this site, with daily fraud and data headlines, a weekly fraud pattern with tips to stay safe, and a rule simulator you can try in your browser.</p>
           </div>
         </div>
         <figure class="about-portrait">
@@ -206,148 +214,79 @@
     <section class="section" id="experience" data-chapter="Experience">
       <div class="wrap">
         <header class="section-head">
-            <p class="eyebrow">03</p>
+            <p class="eyebrow">02</p>
             <h2>Experience</h2>
-          <p>Open a role to read the work. Only one stays open at a time.</p>
         </header>
         <div class="roles">
-          <details name="roles" open>
-            <summary>
+          <article class="job">
+            <header class="role-head">
               <span class="role-line">
                 <span class="role-title">Data Analyst (Fraud &amp; Risk Prevention)</span>
                 <span class="role-meta">Likewize · Southlake, TX · May 2023 – Present</span>
               </span>
-            </summary>
+            </header>
             <ul>
+              <li>Leading the technical strategy for a $1.5M enterprise AI fraud initiative, defining system requirements and coordinating deployment across the U.S., Canada, and EMEA.</li>
               <li>Contributed to $1M+ in annual fraud savings by detecting process gaps and implementing data-driven enhancements across chargeback, payment card fraud, ATO, friendly fraud, and document fraud vectors.</li>
               <li>Automated chargeback decisioning using a SQL-based decision engine, reducing manual review by 80–85% and cutting overall chargeback volume by 40%.</li>
+              <li>Established data-driven claim review protocols, increasing fraud visibility by 30% and driving a 25% risk reduction.</li>
               <li>Design and implement fraud rules for new client launches, from business requirements and UAT through post-launch rule performance monitoring in SQL and Power BI.</li>
               <li>Implement and lead Global Fraud Solutions and vendor integrations such as Recipero, GSMA, LexisNexis, Equifax, and TransUnion, partnering with Product, IT, and vendors on requirements, testing, and rollout.</li>
               <li>Own customer and client analytics, building CSAT, DSAT, NPS, and SLA reporting and Power BI dashboards for client reviews and senior leadership, which cut decision-making time by 25%.</li>
               <li>Train and support global teams on US&amp;C fraud processes and new fraud technology.</li>
             </ul>
-          </details>
-          <details name="roles">
-            <summary>
+          </article>
+          <article class="job">
+            <header class="role-head">
               <span class="role-line">
                 <span class="role-title">R&amp;D Intern – Data Science (Fraud Detection)</span>
                 <span class="role-meta">Likewize · Southlake, TX · Sep 2022 – May 2023</span>
               </span>
-            </summary>
+            </header>
             <ul>
               <li>Built a fraud detection tool on AWS using machine learning models trained on historical claims data, increasing fraud visibility by 22% across the claims process.</li>
               <li>Designed fraud detection algorithms targeting address and shipping fraud by identifying high-risk patterns in location data, improving fraud identification accuracy by 15%.</li>
-              <li>Automated web-scraping workflows for fraud detection, eliminating manual data collection and saving 100+ hours and $20,000 in operational costs weekly.</li>
+              <li>Automated web-scraping workflows for fraud detection, eliminating manual data collection and saving 100+ hours of manual work.</li>
               <li>Researched OpenAI tools and contributed to a chatbot solution automating T&amp;C inquiries, improving agent efficiency and customer experience.</li>
             </ul>
-          </details>
-          <details name="roles">
-            <summary>
+          </article>
+          <article class="job">
+            <header class="role-head">
               <span class="role-line">
                 <span class="role-title">Graduate Research Assistant</span>
                 <span class="role-meta">The University of Texas at Arlington · Arlington, TX · May 2022 – Aug 2023</span>
               </span>
-            </summary>
+            </header>
             <ul>
               <li>Applied experimental design and statistical simulation techniques to evaluate sustainability metrics in construction research using regression analysis and multi-objective optimization.</li>
               <li>Implemented Pareto optimization models to balance environmental, economic, and health impact variables using quantitative modeling frameworks.</li>
               <li>Conducted data-driven analysis to support sustainable material selection decisions based on structured dataset evaluation and statistical validation.</li>
-              <li>Co-authored peer-reviewed research presented at ASEE 2023, applying data science methodologies to sustainability assessment models.</li>
+              <li>Co-authored peer-reviewed research presented at the 2023 ASEE Gulf-Southwest Conference, applying data science methodologies to sustainability assessment models.</li>
             </ul>
-          </details>
+          </article>
         </div>
       </div>
     </section>
 
-    <section class="section" id="work" data-chapter="Work">
+    <section class="section" id="projects" data-chapter="Projects">
       <div class="wrap">
         <header class="section-head">
-          <p class="eyebrow">04</p>
-          <h2>Featured work</h2>
-          <p>Choose a project. Problem, approach, and result follow the work at Likewize.</p>
+          <p class="eyebrow">03</p>
+          <h2>Projects</h2>
+          <p>A live side project, plus earlier academic work.</p>
         </header>
-        <div class="explorer" id="work-explorer">
-          <nav class="explorer-nav" aria-label="Featured projects">
-            <a href="#case-chargeback" aria-current="true">Chargeback decision engine</a>
-            <a href="#case-aws">Machine-learning fraud detection</a>
-            <a href="#case-vendors">Fraud vendor integrations</a>
-            <a href="#case-dashboards">Client analytics dashboards</a>
-          </nav>
-          <div class="explorer-stage">
-            <article class="explorer-panel case is-active" id="case-chargeback">
-              <p class="kicker">Likewize</p>
-              <h3>Chargeback decision engine</h3>
-              <div class="case-points">
-                <div>
-                  <h4>Problem</h4>
-                  <p>Chargeback decisioning depended on manual review.</p>
-                </div>
-                <div>
-                  <h4>Approach</h4>
-                  <p>Automated it with a SQL-based decision engine.</p>
-                </div>
-                <div>
-                  <h4>Result</h4>
-                  <p>Manual review reduced by 80–85%, and overall chargeback volume cut by 40%.</p>
-                </div>
-              </div>
-            </article>
-            <article class="explorer-panel case" id="case-aws">
-              <p class="kicker">Likewize · AWS</p>
-              <h3>Machine-learning fraud detection</h3>
-              <div class="case-points">
-                <div>
-                  <h4>Problem</h4>
-                  <p>Fraud was harder to see across the claims process.</p>
-                </div>
-                <div>
-                  <h4>Approach</h4>
-                  <p>Built a fraud detection tool on AWS using machine learning models trained on historical claims data.</p>
-                </div>
-                <div>
-                  <h4>Result</h4>
-                  <p>Fraud visibility increased by 22% across the claims process.</p>
-                </div>
-              </div>
-            </article>
-            <article class="explorer-panel case" id="case-vendors">
-              <p class="kicker">Likewize · Vendors</p>
-              <h3>Fraud vendor integrations</h3>
-              <div class="case-points">
-                <div>
-                  <h4>Problem</h4>
-                  <p>Global fraud coverage had to be rolled out with Product, IT, and specialist vendors.</p>
-                </div>
-                <div>
-                  <h4>Approach</h4>
-                  <p>Lead Global Fraud Solutions and integrations with Recipero, GSMA, LexisNexis, Equifax, and TransUnion, from requirements and testing through rollout.</p>
-                </div>
-                <div>
-                  <h4>Result</h4>
-                  <p>Requirements, testing, and rollout done with Product, IT, and the vendors.</p>
-                </div>
-              </div>
-            </article>
-            <article class="explorer-panel case" id="case-dashboards">
-              <p class="kicker">Likewize · Power BI</p>
-              <h3>Client analytics dashboards</h3>
-              <div class="case-points">
-                <div>
-                  <h4>Problem</h4>
-                  <p>Client reviews and senior leadership needed CSAT, DSAT, NPS, and SLA reporting in one place.</p>
-                </div>
-                <div>
-                  <h4>Approach</h4>
-                  <p>Built that customer and client reporting, and the Power BI dashboards used in client reviews.</p>
-                </div>
-                <div>
-                  <h4>Result</h4>
-                  <p>Decision-making time cut by 25%.</p>
-                </div>
-              </div>
-            </article>
+        <article class="side-project">
+          <div>
+            <p class="kicker">Side project · Updated daily</p>
+            <h3>Fraud Insights</h3>
+            <p>A small fraud education hub built into this site. A GitHub Action pulls fraud and data headlines from public news feeds every day, each week covers one fraud pattern with its red flags, how analysts detect it, and how people can protect themselves, and a rule simulator shows how a score threshold trades caught fraud against false positives.</p>
           </div>
-        </div>
+          <ul class="side-project-links">
+            <li><a class="btn btn-primary" href="#news">Today's headlines</a></li>
+            <li><a class="btn btn-ghost" href="#pattern">Pattern of the week</a></li>
+            <li><a class="btn btn-ghost" href="#simulator">Try the simulator</a></li>
+          </ul>
+        </article>
 
         <div class="academic" id="academic">
           <h3 class="academic-heading">
@@ -418,7 +357,7 @@
     <section class="section" id="skills" data-chapter="Skills">
       <div class="wrap">
         <header class="section-head">
-          <p class="eyebrow">05</p>
+          <p class="eyebrow">04</p>
           <h2>Skills</h2>
         </header>
         <form class="skill-filter" id="skill-filter-form" hidden>
@@ -430,14 +369,12 @@
           <article data-skill-group>
             <h3>Fraud &amp; risk</h3>
             <ul class="chips">
-              <li>Fraud Prevention Strategy</li>
-              <li>Fraud Detection</li>
-              <li>Fraud Prevention</li>
-              <li>Risk Analytics</li>
+              <li>Fraud Strategy</li>
               <li>Fraud Rule Development</li>
+              <li>Risk Analytics</li>
               <li>Chargebacks</li>
               <li>Payment Card Fraud</li>
-              <li>ATO</li>
+              <li>Account Takeover (ATO)</li>
               <li>Friendly Fraud</li>
               <li>Document Fraud</li>
               <li>Identity Verification</li>
@@ -455,37 +392,28 @@
           <article data-skill-group>
             <h3>Analytics &amp; ML</h3>
             <ul class="chips">
-              <li>Customer &amp; Client Analytics</li>
               <li>SQL</li>
               <li>Python</li>
               <li>R</li>
               <li>Machine Learning</li>
               <li>NLP</li>
+              <li>GenAI / LLMs</li>
               <li>Pattern Recognition</li>
+              <li>Root Cause Analysis</li>
               <li>A/B Testing</li>
               <li>Forecasting</li>
-              <li>Root Cause Analysis</li>
-              <li>GenAI / LLMs</li>
+              <li>Customer &amp; Client Analytics</li>
+              <li>KPI Development</li>
             </ul>
           </article>
           <article data-skill-group>
-            <h3>Tools &amp; BI</h3>
+            <h3>Tools &amp; cloud</h3>
             <ul class="chips">
-              <li>Business Intelligence</li>
               <li>Power BI</li>
               <li>Tableau</li>
               <li>Excel</li>
-              <li>SQL Server</li>
-              <li>SSMS</li>
+              <li>SQL Server (SSMS)</li>
               <li>Data Visualization</li>
-              <li>KPI Development</li>
-              <li>GitHub</li>
-              <li>VS Code</li>
-            </ul>
-          </article>
-          <article data-skill-group>
-            <h3>Cloud</h3>
-            <ul class="chips">
               <li>AWS</li>
               <li>GCP</li>
             </ul>
@@ -497,7 +425,7 @@
     <section class="section" id="education" data-chapter="Education">
       <div class="wrap">
         <header class="section-head">
-          <p class="eyebrow">06</p>
+          <p class="eyebrow">05</p>
           <h2>Education &amp; publication</h2>
         </header>
         <div class="edu-grid">
@@ -515,6 +443,7 @@
         <article class="publication">
           <h3>Publication</h3>
           <p>Chen, V. C. P., &amp; Jones Jr., E. C., &amp; Gudikandula, S., &amp; Sharma, V., &amp; Smalls, R., &amp; Sigler, J. (2024, June). Training Teachers to integrate a Sustainability Assessment for Green Building and Retrofitting Project into a K-12 Classroom. Paper presented at 2023 ASEE GSW, Denton, TX.</p>
+          <p class="pub-dates">Presented March 2023 · Published in the conference proceedings June 2024</p>
           <p><a href="https://doi.org/10.18260/1-2-1153-46328" target="_blank" rel="noopener noreferrer">View the paper<span class="sr-only"> (opens in a new tab)</span></a> <span class="doi">doi.org/10.18260/1-2-1153-46328</span></p>
         </article>
       </div>
@@ -523,9 +452,9 @@
     <section class="section" id="contact" data-chapter="Contact">
       <div class="wrap">
         <header class="section-head">
-          <p class="eyebrow">08</p>
+          <p class="eyebrow">06</p>
           <h2>Contact</h2>
-          <p>Email or LinkedIn.</p>
+          <p>Happy to talk fraud, risk analytics, or data. Email or LinkedIn works best.</p>
         </header>
         <ul class="contact-list">
           <li>
@@ -536,6 +465,10 @@
             <p class="kicker">LinkedIn</p>
             <a href="https://www.linkedin.com/in/vishnusharmakp/" target="_blank" rel="me noopener noreferrer">linkedin.com/in/vishnusharmakp<span class="sr-only"> (opens in a new tab)</span></a>
           </li>
+          <li>
+            <p class="kicker">Based in</p>
+            <p class="contact-place">Dallas–Fort Worth, Texas</p>
+          </li>
         </ul>
       </div>
     </section>
@@ -545,7 +478,7 @@
     <section class="news-band" id="news" data-chapter="News" aria-labelledby="news-title">
       <div class="wrap">
         <header class="section-head">
-          <p class="eyebrow">07 · Updated daily</p>
+          <p class="eyebrow">01 · Updated daily</p>
           <h2 id="news-title">Fraud &amp; Data News</h2>
           <p>Payment fraud, scams, chargebacks, identity and account takeover, financial crime, and a few data and AI headlines. Pulled from public news feeds. Not endorsements.</p>
         </header>
@@ -573,7 +506,7 @@
         <header class="section-head">
           <p class="eyebrow">02</p>
           <h2>Fraud pattern of the week</h2>
-          <p>A public pattern, written for analysts. No customer data and no performance numbers.</p>
+          <p>One fraud pattern each week: what it is, the red flags, how to protect yourself, and how analysts catch it with data. Based on public information only.</p>
         </header>
         <div id="pattern-card">
           <p class="empty-news">The weekly pattern loads from a data file. None is available in this view yet.</p>

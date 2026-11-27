@@ -10,6 +10,13 @@
       "Many failed sign-ins, then one success, on accounts that share a device or IP address",
       "Profile changes clustered with a payment, transfer, or high-risk order"
     ],
+    "protect": [
+      "Use a different password for every account. A password manager makes this practical.",
+      "Turn on multi-factor authentication, ideally an authenticator app or passkey instead of text messages.",
+      "Never share a one-time code. Your bank or a real company will not call or text asking for one.",
+      "Ask your mobile carrier for a port-out PIN or SIM lock to make SIM swaps harder.",
+      "Turn on login and account-change alerts, and act quickly on any you don't recognize."
+    ],
     "detect": [
       "Join login events (time, IP, device) to account-change and payment events on the same customer",
       "Look for short sequences: failed logins, a success, a contact change, then a payment",

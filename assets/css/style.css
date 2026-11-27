@@ -476,7 +476,7 @@ h1 {
 
 .stat-label { margin: 0.15rem 0 0; color: var(--muted); }
 
-.section { padding: 4.2rem 0; }
+.section { padding: 3.2rem 0; }
 
 .section-head { max-width: 40rem; margin-bottom: 1.5rem; }
 .section-head h2 { margin: 0; font-size: clamp(1.8rem, 3vw, 2.5rem); }
@@ -499,37 +499,16 @@ h1 {
 
 .roles { border-top: 1px solid var(--line); }
 
-.roles details { border-bottom: 1px solid var(--line); }
+.job { border-bottom: 1px solid var(--line); padding-bottom: 0.4rem; }
 
-.roles summary {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  min-height: 5rem;
-  padding: 0.9rem 0;
-  cursor: pointer;
-  list-style: none;
-}
-
-.roles summary::-webkit-details-marker { display: none; }
-
-.roles summary::after {
-  content: "+";
-  flex: 0 0 auto;
-  color: var(--accent);
-  font-size: 1.7rem;
-  font-weight: 500;
-  line-height: 1;
-}
-
-.roles details[open] summary::after { content: "–"; }
+.role-head { padding: 1.1rem 0 0.7rem; }
 
 .role-line { display: flex; flex-direction: column; gap: 0.2rem; flex: 1; }
 .role-title { font-size: 1.2rem; font-weight: 600; letter-spacing: -0.03em; }
 .role-meta { color: var(--muted); }
 
 .roles ul {
-  margin: 0 0 1.2rem;
+  margin: 0 0 1rem;
   padding-left: 1.15rem;
 }
 
@@ -943,7 +922,7 @@ h1 {
 }
 
 @media (min-width: 769px) {
-  .hero-grid { max-width: 52rem; }
+  .hero-grid { max-width: none; }
   .hero h1 { max-width: none; text-wrap: balance; }
 }
 
@@ -1044,6 +1023,12 @@ h1 {
 
 @media (min-width: 960px) {
   .hero { padding-top: 3.2rem; }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(17rem, 22rem);
+    gap: 3rem;
+    align-items: center;
+  }
   .about-grid {
     grid-template-columns: 1.2fr 0.8fr;
     gap: 3rem;
@@ -1064,7 +1049,7 @@ h1 {
 }
 
 @media (min-width: 1100px) {
-  .skill-grid { grid-template-columns: 1.15fr 1fr 1fr 0.72fr; }
+  .skill-grid { grid-template-columns: 1.2fr 1fr 1fr; }
   .impact-list { grid-template-columns: repeat(6, 1fr); }
   .impact-list .stat {
     font-size: clamp(1.7rem, 2.1vw, 2.05rem);
@@ -1453,3 +1438,48 @@ h1 {
     transition: none !important;
   }
 }
+
+/* Hero: fraud pattern of the week teaser */
+.hero-pattern {
+  position: relative;
+  margin-top: 1.6rem;
+  padding: 1.3rem 1.3rem 1.2rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 22px;
+  background: linear-gradient(160deg, rgba(154, 216, 255, 0.12), rgba(154, 216, 255, 0.02) 70%);
+  backdrop-filter: blur(6px);
+}
+.hero-pattern[hidden] { display: none; }
+.hero-pattern .kicker { margin: 0 0 0.4rem; }
+.hero-pattern-title { margin: 0; font-size: 1.5rem; }
+.hero-pattern-text { margin: 0.55rem 0 0.9rem; color: var(--muted); font-size: 0.98rem; }
+.hero-pattern-link { color: var(--accent); font-weight: 600; text-decoration: none; }
+.hero-pattern-link:hover { text-decoration: underline; }
+@media (min-width: 960px) { .hero-pattern { margin-top: 0; } }
+@media (max-width: 768px) {
+  .hero-pattern { padding: 1rem 1.1rem; text-align: left; }
+  .hero-pattern-title { font-size: 1.25rem; }
+}
+
+/* Projects: Fraud Insights side project */
+.side-project {
+  display: grid;
+  gap: 1.2rem;
+  padding: 1.5rem;
+  margin-bottom: 1.6rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 22px;
+  background: linear-gradient(160deg, rgba(154, 216, 255, 0.12), transparent 70%);
+}
+.side-project h3 { margin: 0.2rem 0 0.5rem; font-size: 1.6rem; }
+.side-project p { margin: 0; }
+.side-project p + p, .side-project h3 + p { color: var(--muted); max-width: 46rem; }
+.side-project-links { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.6rem; }
+@media (min-width: 960px) {
+  .side-project { grid-template-columns: 1fr auto; align-items: center; gap: 2rem; }
+  .side-project-links { flex-direction: column; }
+  .side-project-links .btn { width: 100%; justify-content: center; }
+}
+
+.pub-dates { color: var(--muted); font-size: 0.92rem; }
+.contact-place { margin: 0; font-size: 1.25rem; font-weight: 600; }

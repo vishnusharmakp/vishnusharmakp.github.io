@@ -563,6 +563,18 @@ if (ticker && tickerTrack) {
   ticker.addEventListener("pointerleave", resumeTicker);
 }
 
+function fillHeroPattern(current) {
+  var teaser = document.querySelector("#hero-pattern");
+  if (!teaser || !current || !current.title) return;
+  var title = teaser.querySelector(".hero-pattern-title");
+  var text = teaser.querySelector(".hero-pattern-text");
+  var summary = String(current.what || "").trim();
+  var firstSentence = summary.match(/^.*?[.!?](\s|$)/);
+  if (title) title.textContent = current.title;
+  if (text) text.textContent = firstSentence ? firstSentence[0].trim() : summary;
+  teaser.hidden = false;
+}
+
 async function loadPattern() {
   var host = document.querySelector("#pattern-card");
   if (!host) return;
@@ -604,10 +616,11 @@ async function loadPattern() {
       });
       if (list.children.length) card.append(title, list);
     }
-    addList("What it is", []);
     addList("Red flags", current.redFlags);
+    addList("How to protect yourself", current.protect);
     addList("How to detect it with data", current.detect);
     host.append(card);
+    fillHeroPattern(current);
 
     var past = Array.isArray(data.past) ? data.past : [];
     var archive = document.createElement("section");
