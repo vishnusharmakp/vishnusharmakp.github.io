@@ -1,0 +1,280 @@
+{
+  "queue": [
+    {
+      "id": "delivery-text-scams",
+      "title": "Delivery text scams",
+      "what": "Delivery text scams are messages that pretend to come from a shipping carrier or the postal service and claim a package is delayed, held, or needs a small fee. The link leads to a fake site that collects card details, login credentials, or personal information, and spikes are common around the holidays when people expect deliveries.",
+      "redFlags": [
+        "A text about a package you don't remember ordering, often from an unknown or international number",
+        "Urgent language such as a final notice, an address problem, or a package being returned today",
+        "A request for a small redelivery or customs fee paid by card",
+        "A link with a misspelled or unusual domain instead of the carrier's official site"
+      ],
+      "protect": [
+        "Don't tap links in unexpected delivery texts. Open the carrier's app or type its website yourself and enter the tracking number.",
+        "Real carriers rarely ask for payment by text to release a normal package.",
+        "If you entered card details on a suspicious site, call your card issuer and ask for a new card.",
+        "Report the text to your carrier by forwarding it to 7726 (SPAM), then delete it."
+      ],
+      "detect": [
+        "Watch for bursts of small card-not-present charges to unfamiliar merchants shortly after holiday shipping peaks",
+        "Flag cards whose first use after a period of inactivity is a small fee followed by larger purchases",
+        "Group new fraud claims by shared merchant descriptors or landing-page domains to find a common phishing source",
+        "Track spikes in login attempts from new devices right after a known phishing campaign is reported"
+      ]
+    },
+    {
+      "id": "gift-card-scams",
+      "title": "Gift card scams",
+      "what": "Gift card scams pressure people into buying gift cards and sharing the card numbers and PINs with someone pretending to be a government agency, utility, boss, tech support, or family member. Once the scammer has the numbers, the balance can be drained in minutes and is very hard to recover.",
+      "redFlags": [
+        "Anyone asking to be paid with gift cards for a bill, fine, tax, or emergency",
+        "Instructions to read the card numbers over the phone or send a photo of the back of the card",
+        "A message that seems to come from a manager or relative asking you to buy cards quickly and keep it quiet",
+        "Pressure to stay on the phone while you buy the cards"
+      ],
+      "protect": [
+        "Gift cards are for gifts. No real agency, utility, or company will demand payment with them.",
+        "Never share the numbers or PIN on the back of a gift card with someone you don't know.",
+        "If a boss or family member asks for gift cards by text or email, call them on a number you already know.",
+        "If you already paid, contact the gift card company right away and keep the receipt and the card."
+      ],
+      "detect": [
+        "Flag unusually large or repeated gift card purchases on accounts that rarely buy them",
+        "Look for several high-value cards bought in one visit or across nearby stores in a short time",
+        "Monitor gift card redemptions from IPs or devices that redeem many unrelated cards",
+        "Compare purchase and redemption timing, since drained balances often move within minutes of activation"
+      ]
+    },
+    {
+      "id": "card-testing",
+      "title": "Card testing",
+      "what": "Card testing is when fraudsters run stolen card numbers through small online purchases or authorizations to find out which ones still work. The valid cards are then used for larger purchases or sold, and the testing itself can create chargebacks, processing fees, and declined-transaction noise for merchants.",
+      "redFlags": [
+        "Many small authorizations or $0 or $1 checks in a short window",
+        "High decline rates with mismatched CVV, ZIP, or expiration dates",
+        "Sequential or similar card numbers tried from the same device, IP, or session",
+        "A sudden spike in guest checkouts or donation-page payments at odd hours"
+      ],
+      "protect": [
+        "Check your statements for small charges you don't recognize. They can be a sign your card is being tested.",
+        "Turn on transaction alerts in your banking app so you see every charge as it happens.",
+        "Report unfamiliar charges to your card issuer, even small ones, and ask for a replacement card.",
+        "Use virtual card numbers for one-off online purchases if your bank offers them."
+      ],
+      "detect": [
+        "Measure authorization velocity per device, IP, and session, and alert on bursts of attempts",
+        "Track decline rates by reason code and flag sudden increases in CVV or AVS mismatches",
+        "Look for many distinct cards tried from one device fingerprint or one checkout session",
+        "Watch low-value, high-volume traffic on pages that accept payments without login"
+      ]
+    },
+    {
+      "id": "triangulation-fraud",
+      "title": "Triangulation fraud",
+      "what": "Triangulation fraud is a three-way scheme where a fraudster sells goods at a discount on a marketplace, then buys them from a real retailer with stolen card details and ships them to the genuine buyer. The buyer gets their item, the fraudster keeps the buyer's payment, and the retailer later takes the chargeback when the real cardholder disputes the charge.",
+      "redFlags": [
+        "Orders where the billing name and the shipping name and address don't match",
+        "Popular, easy-to-resell items such as electronics bought at full price with expedited shipping",
+        "The same shipping address receiving orders paid with many different cards",
+        "Marketplace listings priced far below retail for new, in-demand products"
+      ],
+      "protect": [
+        "Be cautious of marketplace listings priced far below retail, especially for new electronics.",
+        "Pay through the marketplace's own checkout so you keep its buyer protection.",
+        "If an item arrives from a different retailer than the seller you paid, contact the marketplace.",
+        "Check your card statements for purchases shipped to addresses you don't know."
+      ],
+      "detect": [
+        "Compare billing and shipping identities and flag mismatches combined with high-risk items",
+        "Link orders that share shipping addresses, emails, or devices across different cards",
+        "Score orders higher when a new account uses expedited shipping on resellable goods",
+        "Feed confirmed chargebacks back into rules to catch repeat shipping addresses early"
+      ]
+    },
+    {
+      "id": "refund-fraud",
+      "title": "Refund fraud",
+      "what": "Refund fraud is when someone gets money back for an order they shouldn't, for example by claiming an item never arrived, returning an empty box or a different item, or using a paid refund service that manipulates customer support. It often rises after the holidays when return volume is high and teams are stretched.",
+      "redFlags": [
+        "Customers with an unusually high rate of item-not-received or damaged claims",
+        "Returns where the weight or contents don't match the original item",
+        "Scripted support chats that push for an immediate refund before a return is received",
+        "Multiple accounts that share addresses, devices, or payment methods and all file claims"
+      ],
+      "protect": [
+        "Keep order confirmations and delivery photos so you can resolve real problems quickly.",
+        "Never pay a third party who offers to get refunds for you. Those services commit fraud in your name.",
+        "If a package truly didn't arrive, check with neighbors and the carrier before filing a claim.",
+        "Be wary of anyone asking to log into your account to handle a refund for you."
+      ],
+      "detect": [
+        "Track claim rates per customer, address, and device, and compare them with normal baselines",
+        "Compare carrier delivery scans and return-package weights against what was claimed",
+        "Link accounts by shared attributes to find refund rings spread across many profiles",
+        "Review agent overrides and refund approvals for patterns that bypass normal checks"
+      ]
+    },
+    {
+      "id": "friendly-fraud",
+      "title": "Friendly fraud",
+      "what": "Friendly fraud, also called first-party fraud, is when the real cardholder disputes a legitimate purchase with their bank instead of asking the merchant for a refund. Sometimes it's a genuine mistake, such as not recognizing a charge or a family member's purchase, and sometimes it's deliberate, but either way it ends up as a chargeback.",
+      "redFlags": [
+        "Disputes filed for orders that show confirmed delivery and normal account activity",
+        "Customers who dispute charges without ever contacting customer support",
+        "Repeat disputes from the same customer or household over time",
+        "Subscription or digital purchases disputed after the service was used"
+      ],
+      "protect": [
+        "If you don't recognize a charge, check your email receipts and ask family members before disputing it.",
+        "Contact the merchant first. Most refunds are faster and easier through them than through a dispute.",
+        "Keep track of free trials and subscriptions so renewals don't come as a surprise.",
+        "Use clear account controls for children and shared devices to avoid accidental purchases."
+      ],
+      "detect": [
+        "Compare dispute reasons with delivery confirmation, login, and usage data for the same order",
+        "Track dispute history per customer and flag repeat first-party disputers",
+        "Analyze which merchant descriptors cause confusion and work with merchants to make them clearer",
+        "Measure win rates on representment to see which evidence actually reverses chargebacks"
+      ]
+    },
+    {
+      "id": "sim-swap",
+      "title": "SIM swap",
+      "what": "A SIM swap is when a fraudster convinces or tricks a mobile carrier into moving a victim's phone number to a SIM card they control. With the number, they can receive one-time codes sent by text and use them to reset passwords and take over bank, email, and crypto accounts.",
+      "redFlags": [
+        "Your phone suddenly shows no service or emergency calls only for no clear reason",
+        "Notifications that your SIM, eSIM, or number was changed when you didn't ask",
+        "Password reset or login alerts from accounts you weren't using",
+        "A carrier account change followed soon after by a new device login at a bank"
+      ],
+      "protect": [
+        "Ask your carrier to add a port-out PIN, number lock, or SIM lock to your account.",
+        "Use an authenticator app or passkey instead of text-message codes for important accounts.",
+        "Limit how much personal information you share publicly, since it's used to impersonate you.",
+        "If your phone loses service unexpectedly, contact your carrier from another phone right away."
+      ],
+      "detect": [
+        "Use carrier signals where available to flag recent SIM or number changes before trusting text-message codes",
+        "Look for a password reset or new device login within hours of a SIM change",
+        "Flag sessions where contact details change and money moves in the same session",
+        "Step up verification for high-risk actions when the phone number was recently changed"
+      ]
+    },
+    {
+      "id": "synthetic-identity",
+      "title": "Synthetic identity fraud",
+      "what": "Synthetic identity fraud is when criminals combine real and fake details, such as a real Social Security number with a made-up name and birth date, to create a new person who doesn't exist. They build credit for that identity over time, then max out the accounts and disappear, which makes losses look like ordinary bad debt.",
+      "redFlags": [
+        "A thin credit file that suddenly grows through authorized-user tradelines",
+        "An SSN that doesn't match the age, issue history, or name on the application",
+        "Several applications sharing the same phone, address, or device under different names",
+        "Rapid credit limit increases followed by maxed-out balances and no payments"
+      ],
+      "protect": [
+        "Freeze your credit with all three bureaus, and children's credit too. It's free in the U.S.",
+        "Guard Social Security numbers, especially children's, which are often targeted because they go unchecked.",
+        "Check your credit reports regularly for accounts you don't recognize.",
+        "Be cautious with sites and forms that ask for your full SSN without a clear reason."
+      ],
+      "detect": [
+        "Verify identity attributes against authoritative sources, such as SSN validation services where permitted",
+        "Link applications by shared phone numbers, addresses, devices, and emails across different names",
+        "Monitor the bust-out pattern: steady small payments, rising limits, then sudden full utilization",
+        "Track early payment default and write-offs separately from ordinary credit losses"
+      ]
+    },
+    {
+      "id": "business-email-compromise",
+      "title": "Business email compromise",
+      "what": "Business email compromise is when a fraudster impersonates an executive, vendor, or employee by email to trick someone into sending a payment or sensitive data. It often uses a hacked mailbox or a look-alike domain, and a common version is a request to change a vendor's bank details before the next invoice is paid.",
+      "redFlags": [
+        "A request to change bank or payment details, especially by email only",
+        "Urgent or secretive payment requests from an executive who says they can't talk",
+        "Email addresses or domains that are one character off from the real ones",
+        "Reply-to addresses that differ from the sender address"
+      ],
+      "protect": [
+        "Always confirm payment detail changes by calling a known number, not the one in the email.",
+        "Take a moment before acting on urgent money requests, even from senior leaders.",
+        "Turn on multi-factor authentication for work and personal email.",
+        "Report suspicious emails to your IT or security team instead of replying."
+      ],
+      "detect": [
+        "Flag vendor master-data changes, such as new bank accounts, followed closely by a payment",
+        "Detect look-alike domains and new reply-to patterns in inbound email",
+        "Require dual approval and call-back verification for payment detail changes",
+        "Monitor mailbox rules that auto-forward or hide messages, a common sign of a compromised account"
+      ]
+    },
+    {
+      "id": "tech-support-scams",
+      "title": "Tech support scams",
+      "what": "Tech support scams start with a fake pop-up, call, or search ad claiming your computer or account has a virus or a security problem. The scammer then asks for remote access to your device, payment for fake repairs, or access to your bank account to fix a made-up refund error.",
+      "redFlags": [
+        "A pop-up that locks your browser and tells you to call a phone number",
+        "Unsolicited calls from someone claiming to be from a big tech company or your bank's security team",
+        "Requests to install remote access software so they can fix the problem",
+        "A claim that they refunded you too much and need you to send the difference back"
+      ],
+      "protect": [
+        "Real tech companies don't put phone numbers in pop-up warnings or call you out of the blue.",
+        "Close the browser, or restart the device, if a warning won't go away. Don't call the number.",
+        "Never let someone you don't know remotely access your computer or phone.",
+        "If you gave access, disconnect from the internet, run security software, and change your passwords."
+      ],
+      "detect": [
+        "Watch for remote-access sessions followed by online banking logins and transfers",
+        "Flag transfers to new payees made while the customer is on a long phone call or after a new device login",
+        "Look for repeated transfers or gift card purchases framed as refunds",
+        "Add friction and scam warnings for first-time payees and unusual transfer amounts"
+      ]
+    },
+    {
+      "id": "romance-scams",
+      "title": "Romance scams",
+      "what": "Romance scams are when a fraudster builds a fake online relationship, often over weeks or months, and then asks the victim for money for an emergency, travel, or an investment opportunity. Because the victim trusts the person, the losses can be large and may repeat many times.",
+      "redFlags": [
+        "An online partner who professes strong feelings quickly but always avoids video calls or meeting",
+        "Stories of emergencies, medical bills, customs fees, or travel costs that need money fast",
+        "Requests to send money by wire, gift card, or cryptocurrency",
+        "Encouragement to invest in a crypto platform they recommend"
+      ],
+      "protect": [
+        "Never send money to someone you have only met online, however real the relationship feels.",
+        "Do a reverse image search on their photos to see if they appear elsewhere under other names.",
+        "Talk to a friend or family member before sending money. Scammers often ask you to keep it secret.",
+        "If you think you're being scammed, stop contact and report it to the platform and to your bank."
+      ],
+      "detect": [
+        "Flag customers who start sending repeated transfers to new overseas or crypto recipients",
+        "Look for escalating payment amounts to the same new payee over weeks",
+        "Combine age, payment history, and new payee signals to prioritize outreach and warnings",
+        "Train frontline staff to ask open questions when customers make unusual large transfers"
+      ]
+    },
+    {
+      "id": "bank-impersonation",
+      "title": "Bank impersonation scams",
+      "what": "Bank impersonation scams are calls or texts from someone pretending to be your bank's fraud team, warning about suspicious activity. They then ask for your one-time code, login details, or for you to move money to a safe account, which actually belongs to the scammer.",
+      "redFlags": [
+        "A call or text claiming fraud on your account, followed by a request for a code you just received",
+        "Caller ID that shows your bank's name or number, which can be faked",
+        "Instructions to move money to a new safe account to protect it",
+        "Pressure to act immediately and not hang up"
+      ],
+      "protect": [
+        "Your bank will never ask you to read back a one-time code or move money to protect it.",
+        "Hang up and call the number on the back of your card or in your banking app.",
+        "Don't trust caller ID alone. Scammers can make any name or number appear.",
+        "If you shared a code or sent money, call your bank immediately using its official number."
+      ],
+      "detect": [
+        "Flag one-time code entry followed quickly by a new device login or new payee",
+        "Watch for first-time transfers of large amounts to new payees after an inbound call",
+        "Correlate customer reports of impersonation calls to find active spoofed numbers",
+        "Add confirmation of payee and scam warnings before large first-time transfers"
+      ]
+    }
+  ]
+}

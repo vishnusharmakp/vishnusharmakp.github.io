@@ -1,0 +1,42 @@
+name: Rotate fraud pattern of the week
+
+# Every Monday, moves the next pattern from data/pattern-queue.json into
+# data/pattern.json and archives last week's pattern under "Past patterns".
+# 14:17 UTC is about 8:17 AM Central (9:17 AM during daylight saving).
+# GitHub may delay scheduled runs. workflow_dispatch lets the owner run it
+# from the Actions tab.
+
+on:
+  schedule:
+    - cron: "17 14 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: site-data-commits
+  cancel-in-progress: false
+
+jobs:
+  rotate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Rotate pattern
+        run: python3 scripts/rotate_pattern.py
+
+      - name: Commit pattern files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/pattern.json data/pattern-queue.json
+          if git diff --staged --quiet; then
+            echo "No pattern changes."
+          else
+            git commit -m "Rotate fraud pattern of the week"
+            git pull --rebase origin main
+            git push
+          fi
